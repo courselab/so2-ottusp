@@ -1,0 +1,9 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: main
+Upstream-Contact: Otto Fernandes <ottofernandes2012@gmail.com>
+Source: https://github.com/courselab/so2-ottusp.git
+
+Files: */.dist
+Copyright: Otto Fernandes <ottofernandes2012@gmail.com>
+License: CC0-1.0
+
