@@ -1,0 +1,37 @@
+#    SPDX-FileCopyrightText: 2024 Otto Fernandes <ottofernandes2012@gmail.com>
+#   
+#    SPDX-License-Identifier: GPL-3.0-or-later
+
+# Solving
+This document is used for responding and commenting items from the README file located
+in this folder.
+
+# Exercise
+### Disclaimer
+For items B and C, we used the Intel assembly language from eg-00,
+as this is simpler and easier to implement. We struggled with translating
+AT&T Gas assembly concepts into C code that could assemble this asm code.
+
+In our implementation, for simplifying purposes, we did not implement
+labels, as this would require keeping track of different labels
+throughout the program, and keeping pace of memory address as assembling
+process occurred.
+
+So we are sticking with Intel assembly, as well as a non-label implementation.
+
+## Item D
+They have an exact match.
+
+Initially, our implementation produced a binary that was slightly different
+from eg-00.bin, due to not implementing the `.word` directive. After
+noticing this, we updated our C program to accept this directive as well.
+
+## Item E
+The output is very similar to what was produced by dissamble script. The
+major differences go to the fact that originally we used char letters
+to represent `Hello World`. In the disassembled code, however, it used
+hexdecimal code, so it looks more like byte code.
+
+## Item F
+It worked!
+
