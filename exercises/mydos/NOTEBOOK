@@ -20,3 +20,9 @@ and paved the way to incoming steps.
 ## Step 4
 We just removed all references to the external program prog.c, both from Makefile,
 tydos.ld and kernel.c
+
+## Step 5
+Included the disk.img image, formated with 4 block for boot, and a rule in Makefile
+for creating the image populated with zeros.
+
+Also included a program `whatever.c` in the disk. Just a plain Hello World in C.
