@@ -16,3 +16,7 @@ students from the team is taking before graduating.
 
 Overall, not many difficulties here. Exploring TyDOS and TyFS was very helpful
 and paved the way to incoming steps.
+
+## Step 4
+We just removed all references to the external program prog.c, both from Makefile,
+tydos.ld and kernel.c
