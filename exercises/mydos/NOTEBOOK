@@ -1,0 +1,18 @@
+#    SPDX-FileCopyrightText: 2024 Otto Fernandes <ottofernandes2012@gmail.com>
+#   
+#    SPDX-License-Identifier: GPL-3.0-or-later
+
+# Solving
+# This document is used for responding and commenting items from the README file located
+in this folder.
+
+# Exercise MyDOS
+
+## Steps 1, 2 and 3
+We just exported the project to the repository, and renamed it to LDOS - 
+the Last Dance Operating System. The name is a reference to the fact that
+Operating Systems 2 (which is this course) is the last course one of the
+students from the team is taking before graduating.
+
+Overall, not many difficulties here. Exploring TyDOS and TyFS was very helpful
+and paved the way to incoming steps.
