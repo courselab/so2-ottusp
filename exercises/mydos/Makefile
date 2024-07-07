@@ -77,6 +77,12 @@ disk.img:
 	rm -f $@
 	dd if=/dev/zero of=$@ count=2880
 
+
+# Copy $(dos).bin into the disk image
+
+cp-to-disk: $(dos).bin
+	dd bs=1 if=$< of=disk.img seek=16 skip=16 conv=notrunc
+
 # Housekeeping.
 
 .PHONY: clean

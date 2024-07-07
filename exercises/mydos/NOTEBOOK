@@ -26,3 +26,12 @@ Included the disk.img image, formated with 4 block for boot, and a rule in Makef
 for creating the image populated with zeros.
 
 Also included a program `whatever.c` in the disk. Just a plain Hello World in C.
+
+## Step 6 and 7
+Included rule for copying the OS binary to the disk. Flag `seek` is used to start copy
+after the first 16 bytes of the disk, and flag `skip` is used to ignore the first 16
+bytes from the binary. It seems that these 16 first bytes from the binary are not
+important, so that's why building the OS from the disk worked (even though we are not
+sure).
+
+Also booted the OS from the disk.
