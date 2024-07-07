@@ -35,16 +35,19 @@ SECTIONS
 
 	.kernel :		/* The kernel and remaining files. */
 	{
-	  kernel.o     (.text .data .bss .rodata) /* The kernel itself.     */
-	  kaux.o       (.text .data .bss .rodata) /* Aux. kernel functions. */
-	  bios2.o      (.text .data .bss .rodata) /* More low-level code .  */
-	  syscall.o    (.text .data .bss .rodata) /* System calls.          */
-	  logo.o       (.rodata)		  /* Some ASCII "art".      */
+	  kernel.o     		(.text .data .bss .rodata) /* The kernel itself.     */
+	  kaux.o       		(.text .data .bss .rodata) /* Aux. kernel functions. */
+	  file_system.o		(.text .data .bss .rodata) /* File system functions.  */
+	  bios2.o      		(.text .data .bss .rodata) /* More low-level code .  */
+	  syscall.o    		(.text .data .bss .rodata) /* System calls.          */
+	  logo.o       		(.rodata)		  /* Some ASCII "art".      */
 	}
 
 	_KERNEL_SIZE = . - _KERNEL_ADDR; /* How many bytes we'll read.      */
 
 	_END_STACK = 0x7c00;	/* Place the stack bellow the program.      */
+
+	_MEM_POOL = .; /* Start of memory pool */
 	
 }
 STARTUP(rt0.o)			 /* Prepend with the start file. */

@@ -27,7 +27,7 @@ all: $(dos).bin prog.bin
 
 # Link all objects needed by the OS.
 
-$(dos).bin : bootloader.o bios1.o kernel.o kaux.o bios2.o logo.o syscall.o 
+$(dos).bin : bootloader.o bios1.o kernel.o kaux.o bios2.o logo.o syscall.o file_system.o
 	ld -melf_i386 -T tydos.ld --orphan-handling=discard $^ -o $@
 
 

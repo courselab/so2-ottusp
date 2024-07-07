@@ -12,6 +12,8 @@
 #ifndef KLIB_H
 #define KLIB_H
 
+typedef char byte;
+
 #define COLS    80		/* VGA-compatible text mode: 80 columns. */
 #define ROWS    25		/* VGA-compatible text mode: 25 rows.    */
 #define UPPER    0		/* First row (upper of the screen).      */

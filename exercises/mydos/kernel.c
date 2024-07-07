@@ -17,6 +17,7 @@
 #include "bios2.h"		/* For kread() etc.             */
 #include "kernel.h"		/* Essential kernel functions.  */
 #include "kaux.h"		/* Auxiliary kernel functions.  */
+#include "file_system.h"
 
 /* Kernel's entry function. */
 
@@ -89,6 +90,7 @@ struct cmd_t cmds[] =
   {
     {"help",    f_help},     /* Print a help message.       */
     {"quit",    f_quit},     /* Exit LDOS.                 */
+    {"list",    f_list},     /* List files in LDOS          */
     {"exec",    f_exec},     /* Execute an example program. */
     {0, 0}
   };
@@ -100,7 +102,8 @@ void f_help()
 {
   kwrite ("...me, Obi-Wan, you're my only hope!\n\n");
   kwrite ("   But we can try also some commands:\n");
-  kwrite ("      exec    (to execute an user program example\n");
+  kwrite ("      exec    (to execute an user program example)\n");
+  kwrite ("      list    (to list the files in LDOS)\n");
   kwrite ("      quit    (to exit LDOS)\n");
 }
 
@@ -108,6 +111,30 @@ void f_quit()
 {
   kwrite ("Program halted. Bye.");
   go_on = 0;
+}
+
+void print_header(fs_header * header) {
+  kwrite(header);
+}
+
+void f_list() {
+  fs_header *header = get_fs_header();
+
+  int sector_coordinate = 1 + header->number_of_boot_sectors;
+  int sectors_to_read = header->number_of_file_entries * DIR_ENTRY_LEN / SECTOR_SIZE;
+
+  extern byte _MEM_POOL;
+  void *directory_section = (void *)&_MEM_POOL;
+
+  load_disk_into_memory(sector_coordinate, sectors_to_read, directory_section);
+
+  for (int i = 0; i < header->number_of_file_entries; i++) {
+    char *file_name = directory_section + i * DIR_ENTRY_LEN;
+    if(file_name[0]) {
+      kwrite(file_name);
+      kwrite("\n");
+    }
+  }
 }
 
 void f_exec()

@@ -1,0 +1,3 @@
+Hello everyone!
+
+This is the content for this test file, to be included in the disk image
