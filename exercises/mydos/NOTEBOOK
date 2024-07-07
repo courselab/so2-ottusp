@@ -35,3 +35,18 @@ important, so that's why building the OS from the disk worked (even though we ar
 sure).
 
 Also booted the OS from the disk.
+
+## Step 8
+Many changes were required to make `list` operation possible in the OS. For example,
+disk was reformated to have 20 blocks size for boot. Besides, offset for the OS
+binary was reset to 14 instead of 60 bytes, which was the default. This was, OS
+binary starts right after disk header (2 bytes for jump instruction + 14 bytes
+for rest of header = 16 from header)
+
+Added new code file `file_system.c` and its objects. This file declares a function
+that receives a sector and a number of sectors to be read from the disk, and outputs
+its content to the memory. This is useful for organizating the code when retrieving
+the name of files inside the disk.
+
+Besides, added the list operation using the function from `file_system.c`, outputing
+content from disk in the "file name section" from the image.

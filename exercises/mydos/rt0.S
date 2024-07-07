@@ -13,7 +13,7 @@
 	.text
 	
 	jmp _start		/* Provision for BIOSes that assume the   */
-	. = . + 60		/* media is FAT and has a BBP in the MBR. */
+	. = . + 14		/* media is FAT and has a BBP in the MBR. */
 	
 _start:
 
