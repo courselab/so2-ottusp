@@ -41,6 +41,8 @@ SECTIONS
 	  bios2.o      		(.text .data .bss .rodata) /* More low-level code .  */
 	  syscall.o    		(.text .data .bss .rodata) /* System calls.          */
 	  logo.o       		(.rodata)		  /* Some ASCII "art".      */
+	  libtydos.o		(.text .data .bss .rodata) /* Tmp.          */
+	  string.o
 	}
 
 	_KERNEL_SIZE = . - _KERNEL_ADDR; /* How many bytes we'll read.      */

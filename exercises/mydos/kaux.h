@@ -21,6 +21,8 @@ typedef char byte;
 #define LEFT    0		/* First column (left of the screen).    */
 #define RIGHT   (COLS -1)	/* Last column (right of the screen).    */
 
+#define USER_PROGRAM_START_ADDR 0xFE00
+
 extern char character_color;    /* Default fore/background char color.   */
 
 void splash(void);		/* Draw the splash screen.               */
@@ -30,8 +32,6 @@ void halt(void);		/* Halt the system.                       */
 
 #define color_char(ascii) ((character_color<<8) + ascii)
 
-int strcmp(const char *s1, const char *s2);
-
 int syscall();
 
 void register_syscall_handler();
@@ -40,5 +40,7 @@ void input (char *);
 
 void writexy(unsigned char, unsigned char, const char *);
 void clearxy(void);
+
+void call_program(void * program_addr);
 
 #endif  /* KLIB_H  */

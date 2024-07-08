@@ -17,6 +17,11 @@ SECTIONS
 	PRG_LOAD_ADDR = 0xFE00;	/* Program load address.              */
 	
         . = PRG_LOAD_ADDR;
+
+	.prepend :
+	{
+		crt0.o     (.text .data .bss .rodata) /* Runtime initializer. */
+	}
 	
         .bin :
 	{

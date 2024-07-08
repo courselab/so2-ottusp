@@ -50,3 +50,20 @@ the name of files inside the disk.
 
 Besides, added the list operation using the function from `file_system.c`, outputing
 content from disk in the "file name section" from the image.
+
+## Steps 9 and 10
+A lot was done in these steps. First, add `crt0.S`, that calls `main` and return. This
+`main` function is inside external program, so basically it enables calls to new binary
+to be made.
+
+The rest lies around the `exec` command inside the kernel, that asks for a program name,
+locates the file inside the disk image, loads it in memory, jumps to the beginning
+of the program and executes it.
+
+Some engineering was required for the `call_program` function inside `kaux.c`. Basically,
+it jumps to the start of an executable file.
+
+`gets` is implemented, and a syscall for reading from the keyboard is added along.
+
+Everything is put together inside `tydos.ld`, and the `hello.c` binary is put inside
+`disk.img`. It now can be executed inside the simple OS.

@@ -78,15 +78,26 @@ void splash(void)
   clearxy();
 }
 
-/* Return 0 is string 's1' and 's2' are equal; return non-zero otherwise.*/
+void call_program(void * program_addr) {
+    __asm__ volatile(
+      "  call get_return_addr_into_ebx \n"  // coloca o return address em ebx
 
-int strcmp(const char *s1, const char *s2)
-{
-  while (*s1 && *s2 && *s1 == *s2) {
-    s1++;
-    s2++;
-  }
-  return (*s1 - *s2);
+      "original_return_addr: \n"  // será usado para calcular o valor que deve ser adicionado à stack
+
+      "  push %%ebx \n"  // colocar o ebx na stack
+
+      "  jmp *%[progAddr] \n"  // jump pra main
+
+      "get_return_addr_into_ebx: \n"
+      "  mov (%%esp), %%ebx \n"  // coloca o topo da stack em ebx
+
+      "  mov $prog_finish, %%ecx \n"           // ecx = endereço de prog_finish
+      "  sub $original_return_addr, %%ecx \n"  // ecx -= endereço de original_return_addr
+
+      "  add %%ecx, %%ebx \n"  // soma ecx em ebx, ou seja, faz com que ebx aponte para prog_finish
+      "  ret \n"
+
+      "prog_finish:"
+
+      ::[progAddr] "r"(program_addr));
 }
-
-

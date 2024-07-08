@@ -122,6 +122,7 @@ syscall_table:
 	.long sys_invalid	/* Syscall 0: invalid.   */
 	.long sys_exit		/* Syscall 1: exit.      */
 	.long sys_write		/* Syscall 2: write      */
+	.long sys_read		/* Syscall 3: read		 */
 	
 	/* Read-only data. */
 	

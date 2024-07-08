@@ -12,7 +12,7 @@
 #ifndef BIOS2_H
 #define BIOS2_H
 
-int __attribute__((fastcall)) kread(char *);
+int __attribute__((fastcall)) kread(char * str);
 
 void __attribute__((fastcall)) udelay(unsigned short);
 

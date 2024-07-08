@@ -18,6 +18,8 @@
 #include "kernel.h"		/* Essential kernel functions.  */
 #include "kaux.h"		/* Auxiliary kernel functions.  */
 #include "file_system.h"
+#include "tydos.h"
+#include "string.h"
 
 /* Kernel's entry function. */
 
@@ -113,10 +115,6 @@ void f_quit()
   go_on = 0;
 }
 
-void print_header(fs_header * header) {
-  kwrite(header);
-}
-
 void f_list() {
   fs_header *header = get_fs_header();
 
@@ -137,8 +135,50 @@ void f_list() {
   }
 }
 
-void f_exec()
-{
-  kwrite("Program not linked anymore...\n");
+void kwrite_number(int a) {
+  char position[10];
+  itos(a, position);
+  kwrite(position);
+}
+
+void f_exec() {
+  kwrite("Program name: ");
+  char program_name[10];
+  gets(program_name);
+
+  fs_header *header = get_fs_header();
+
+  int boot_sectors = 1 + header->number_of_boot_sectors;
+  int file_name_sectors = header->number_of_file_entries * DIR_ENTRY_LEN / SECTOR_SIZE;
+
+  extern byte _MEM_POOL;
+  void *directory_section = (void *)&_MEM_POOL;
+
+  load_disk_into_memory(boot_sectors, file_name_sectors, directory_section);
+
+  int bin_page_number = -1;
+  for (int i = 0; i < header->number_of_file_entries; i++) {
+    char *file_name = directory_section + i * DIR_ENTRY_LEN;
+
+    if(file_name[0] && !strcmp(file_name, program_name)) {
+      bin_page_number = i;
+      break;
+    }
+  }
+
+  if (bin_page_number == -1) {
+    kwrite("Program not found in disk...\n");
+    return;
+  }
+
+  void * bin_sector_coordinate = boot_sectors + file_name_sectors + header->max_file_size * bin_page_number - 1;
+
+  int memory_offset = header->number_of_file_entries * DIR_ENTRY_LEN - (file_name_sectors - 1) * 512;
+  void * relative_memory_program_sector = (void *) USER_PROGRAM_START_ADDR;
+  void * memory_program_sector = relative_memory_program_sector - memory_offset;
+
+  load_disk_into_memory(bin_sector_coordinate, header->max_file_size, memory_program_sector);
+
+  call_program(memory_program_sector);
 }
 

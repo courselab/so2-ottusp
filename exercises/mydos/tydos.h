@@ -25,7 +25,10 @@
 #define SYS_INVALID 0
 #define SYS_EXIT    1
 #define SYS_WRITE   2
+#define SYS_READ    3
 
 void puts(const char* str);	/* Outputs 'str' on the screen. */
+
+void gets(char* str);   /* Reads and copies content to 'str' */
 
 #endif  /* TYDOS_H  */
