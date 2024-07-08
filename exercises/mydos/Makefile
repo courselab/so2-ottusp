@@ -27,7 +27,7 @@ all: $(dos).bin prog.bin
 
 # Link all objects needed by the OS.
 
-$(dos).bin : bootloader.o bios1.o kernel.o kaux.o bios2.o logo.o syscall.o file_system.o
+$(dos).bin : bootloader.o bios1.o kernel.o kaux.o bios2.o logo.o syscall.o file_system.o libtydos.o string.o
 	ld -melf_i386 -T tydos.ld --orphan-handling=discard $^ -o $@
 
 
@@ -40,7 +40,7 @@ $(dos).bin : bootloader.o bios1.o kernel.o kaux.o bios2.o logo.o syscall.o file_
 	as -32 $< -o $@
 
 bootloader.o : bios1.h kernel.h 
-kernel.o : bios1.h bios2.h kernel.h kaux.h   
+kernel.o : bios1.h bios2.h kernel.h kaux.h tydos.h
 kaux.o:    bios2.h kaux.h   
 
 $(dos).bin : .EXTRA_PREREQS = rt0.o tydos.ld
@@ -49,9 +49,9 @@ $(dos).bin : .EXTRA_PREREQS = rt0.o tydos.ld
 # You would add new programs to this variable if bulding other user programs.
 # The user library is automatically added by the linker script.
 
-progs = prog.bin
+progs = prog.bin hello.bin
 
-$(progs)  : %.bin : %.o libtydos.a 
+$(progs)  : %.bin : %.o libtydos.a
 	ld -melf_i386 -T prog.ld --orphan-handling=discard $< -o $@
 
 $(progs:%.bin=%.o) : %.o : %.c tydos.h
@@ -59,7 +59,7 @@ $(progs:%.bin=%.o) : %.o : %.c tydos.h
 
 $(progs:%.bin=%.o) : tydos.h
 
-$(progs:%.bin=%.o) : .EXTRA_PREREQS = prog.ld
+$(progs:%.bin=%.o) : .EXTRA_PREREQS = crt0.o prog.ld
 
 # Recipes to build the user library.
 
