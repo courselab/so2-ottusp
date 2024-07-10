@@ -7,6 +7,13 @@
 in this folder.
 
 # Exercise MyDOS
+## Disclaimer
+Besides from documenting progress in this file, steps are split between commits
+as well. Reader can follow progress in this exercise by either commits in this
+repository, notes in this NOTEBOOK file or both.
+
+Using either commits, or both commits and NOTEBOOK file is encouraged. But feel
+free to choose whatever makes more sense to you :).
 
 ## Steps 1, 2 and 3
 We just exported the project to the repository, and renamed it to LDOS - 
