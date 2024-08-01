@@ -74,3 +74,8 @@ it jumps to the start of an executable file.
 
 Everything is put together inside `tydos.ld`, and the `hello.c` binary is put inside
 `disk.img`. It now can be executed inside the simple OS.
+
+EVALUATION
+==========
+
+Way to go! Nailed it!
